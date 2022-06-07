@@ -45,10 +45,10 @@ const authorizeUserAction = async (req, res, next) => {
     }
 
 
-    const role = user.roles.find( r => r == 'admin');
-    console.log(role);
+    // const role = use;
+    // console.log(role);
 
-    if(role){
+    if(user.role == 'admin'){
         console.log('Admin.....')
         return next();
     }

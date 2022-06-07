@@ -7,7 +7,6 @@ const SupplierSchema = new mongoose.Schema({
     supplier_email: { type: String},
     supplier_contact_person: {type: Array},
     supplier_website: { type: String},
-    // supplier_type: { type: String},
     supplier_mobile: { type: String, required: [true, 'Supplier mobile is required']},
     supplier_address: { type: String},
     supplier_location: { type: String, required: [true, 'Supplier location is required']},
