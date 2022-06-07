@@ -10,8 +10,8 @@ authRouter.post('/login', async(req, res) =>{
     
     // const { email, password } = req.body;
     let pass = req.body.password
-    let email = req.body.email
-    if(!email || !pass){
+    let username = req.body.username
+    if(!username || !pass){
         return res.status(400).json({
             success: false,
             message: 'Email and Password are required'
