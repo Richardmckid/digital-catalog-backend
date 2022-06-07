@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
-    origin: ['https://supplier-app-rich.herokuapp.com','supplier-app-rich.herokuapp.com','http://localhost:3000','http://localhost:8080']
+    origin: ['https://digital-catalogue.netlify.app','digital-catalogue.netlify.app','https://supplier-app-rich.herokuapp.com','supplier-app-rich.herokuapp.com','http://localhost:3000','http://localhost:8080']
 }));
 app.use(express.json());
 
