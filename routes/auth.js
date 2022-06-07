@@ -42,7 +42,7 @@ authRouter.post('/login', async(req, res) =>{
             })
         }
 
-        const token = jwt.sign({id: user._id, roles: user.roles}, process.env.JWT_SECRET, {expiresIn: '1h'})
+        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '1h'})
         const {password, ...currentUser} = user._doc
 
         res.cookie(
