@@ -9,8 +9,10 @@ const authRouter = Router();
 authRouter.post('/login', async(req, res) =>{
     
     // const { email, password } = req.body;
-    let pass = req.body.password
+    let pass1 = req.body.password
     let username = req.body.username
+
+    var pass = atob(pass1);
     console.log(req.body);
     if(!username || !pass){
         return res.status(400).json({
