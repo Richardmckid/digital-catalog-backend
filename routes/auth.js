@@ -21,7 +21,7 @@ authRouter.post('/login', async(req, res) =>{
     try {
 
 
-        const user = await User.findOne({email})
+        const user = await User.findOne({username})
         if(!user){
             return res.status(400).json({
                 success: false,
