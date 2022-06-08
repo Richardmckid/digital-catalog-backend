@@ -117,8 +117,8 @@ authRouter.get('/profile/:id', tokenVerify, async(req, res) =>{
                 message: 'There is no user matching the provided ID: '+uid
             })
         }
-
-        if(user._id !== uid){
+        console.log(user._id.toString())
+        if(user._id.toString() !== uid){
             return res.status(401).json({
                 success: false,
                 message: 'Not allowed to view this profile'
