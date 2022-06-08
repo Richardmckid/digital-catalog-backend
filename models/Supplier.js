@@ -13,7 +13,7 @@ const SupplierSchema = new mongoose.Schema({
     supplier_bank_name: { type: String},
     status: {type: String, enum: ['Approved', 'Pending','Rejected'], default: 'Pending'},
     author: { type: String},
-    supplier_rating: {type: Number},
+    supplier_rating: {type: String},
     supplier_district: { type: String}
     
 }, {timestamps:true})
