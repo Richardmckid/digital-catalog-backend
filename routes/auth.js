@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { emailValidator, usernameValidator, passwordValidator} from "../middleware/userModelValidator.js";
 import { tokenVerify } from "../middleware/tokenVerify.js";
+import mongoose from "mongoose";
 
 const authRouter = Router();
 
