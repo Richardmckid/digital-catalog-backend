@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { emailValidator, usernameValidator, passwordValidator} from "../middleware/userModelValidator.js";
+import { tokenVerify } from "../middleware/tokenVerify.js";
 
 const authRouter = Router();
 
@@ -101,9 +102,46 @@ authRouter.post('/register', emailValidator, usernameValidator, passwordValidato
     }
 })
 
+authRouter.get('/profile/:id', tokenVerify, async(req, res) =>{
+
+    const uid = req.params.id;
+
+    if(mongoose.Types.ObjectId.isValid(uid)){
+
+        const user = await User.findById(uid);
+        
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: 'There is no user matching the provided ID: '+uid
+            })
+        }
+
+        if(user._id !== uid){
+            return res.status(401).json({
+                success: false,
+                message: 'Not allowed to view this profile'
+            })
+        }
+
+
+        const {password, ...profile} = user._doc
+
+        return res.status(200).json({
+            success: true,
+            profile,
+        })
+    }
+
+    return res.status(401).json({
+        success: false,
+        message: 'There is no user matching the provided'
+    })
+})
+
 authRouter.get('/logout', async(req, res) =>{
     
-    return res.clearCookie('access-token');
+    return res.clearCookie('token');
 })
 
 

@@ -2,6 +2,8 @@ import Supplier from "../models/Supplier.js";
 import { Router } from "express";
 import { tokenVerify } from "../middleware/tokenVerify.js";
 import { authorizeUserAction } from "../middleware/authorizeUserAction.js";
+import Document from "../models/Document.js";
+import Contact from "../models/Contact.js";
 import mongoose from "mongoose";
 // var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -32,9 +34,14 @@ supplierRouter.get("/:id", async (req, res) => {
                 message: 'There is no supplier matching the provided ID: '+sid
             })
         }
+        const documents = await Document.find({supplier_id: sid});
+        const contacts = await Contact.find({supplier_id: sid});
+
         return res.status(200).json({
             success: true,
             supplier: supplier,
+            document: documents,
+            contact: contacts
         })
     }
 
@@ -52,7 +59,7 @@ supplierRouter.post('/create', tokenVerify, async(req, res) =>{
     
     const supplierObj = req.body;
     const newSupplier = new Supplier({...supplierObj, author:req.user.id})
-    // console.log(req.user)
+    
 
     try {
         
@@ -133,6 +140,60 @@ supplierRouter.delete('/:id', tokenVerify, authorizeUserAction, async(req, res) 
         });
     });
 })
+
+
+supplierRouter.post('/documents', tokenVerify, authorizeUserAction, async(req, res) =>{
+    
+    
+    const documentObj = req.body;
+    const newDocument = new Document(documentObj)
+    
+
+    try {
+        
+        const document = await newDocument.save()
+        if(document){
+            return res.status(201).json({
+                success: true,
+                message: 'Document added successfully'
+            })
+        }
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'An error occured, please try again later.',
+            error
+        })
+    }
+})
+
+supplierRouter.post('/contacts', tokenVerify, authorizeUserAction, async(req, res) =>{
+    
+    
+    const contactObj = req.body;
+    const newContact = new Contact(contactObj)
+    
+
+    try {
+        
+        const contact = await newContact.save()
+        if(contact){
+            return res.status(201).json({
+                success: true,
+                message: 'Contact added successfully'
+            })
+        }
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'An error occured, please try again later.',
+            error
+        })
+    }
+})
+
 
 
 
