@@ -36,7 +36,7 @@ supplierRouter.get("/:id", async (req, res) => {
         }
         const documents = await Document.find({supplier_id: sid});
         const contacts = await Contact.find({supplier_id: sid});
-
+        supplier.registration_date = supplier.createdAt;
         return res.status(200).json({
             success: true,
             supplier: supplier,
