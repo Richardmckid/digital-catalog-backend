@@ -167,8 +167,64 @@ supplierRouter.post('/documents', tokenVerify, async(req, res) =>{
         })
     }
 })
+supplierRouter.delete('/documents/:id', tokenVerify, async(req, res) =>{
+    
+    
+    const id = req.params.id;
 
-supplierRouter.post('/contacts', tokenVerify, authorizeUserAction, async(req, res) =>{
+    Document.findByIdAndRemove(id)
+    .then(data => {
+      if(!data) {
+
+        return res.status(404).json({
+            success: false,
+            message: `Cannot delete Document with id=${id}. Maybe Document was not found!`
+        });
+
+      } else {
+        return res.status(404).json({
+            success: true,
+            message: "Document was deleted successfully!"
+        });
+      }
+    })
+    .catch(err => {
+        return res.status(500).json({
+            success: false,
+            message: "Could not delete Document with id=" + id
+        });
+    });
+})
+supplierRouter.delete('/contacts/:id', tokenVerify, async(req, res) =>{
+    
+    
+    const id = req.params.id;
+
+    Contact.findByIdAndRemove(id)
+    .then(data => {
+      if(!data) {
+
+        return res.status(404).json({
+            success: false,
+            message: `Cannot delete Contact with id=${id}. Maybe Contact was not found!`
+        });
+
+      } else {
+        return res.status(404).json({
+            success: true,
+            message: "Contact was deleted successfully!"
+        });
+      }
+    })
+    .catch(err => {
+        return res.status(500).json({
+            success: false,
+            message: "Could not delete Contact with id=" + id
+        });
+    });
+})
+
+supplierRouter.post('/contacts', tokenVerify, async(req, res) =>{
     
     
     const contactObj = req.body;
