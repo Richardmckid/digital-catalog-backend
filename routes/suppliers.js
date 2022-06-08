@@ -142,7 +142,7 @@ supplierRouter.delete('/:id', tokenVerify, authorizeUserAction, async(req, res) 
 })
 
 
-supplierRouter.post('/documents', tokenVerify, authorizeUserAction, async(req, res) =>{
+supplierRouter.post('/documents', tokenVerify, async(req, res) =>{
     
     
     const documentObj = req.body;
