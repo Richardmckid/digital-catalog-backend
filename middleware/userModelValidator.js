@@ -49,17 +49,17 @@ const usernameValidator = async (req, res, next) => {
 
         return res.status(400).json({
             success: false,
-            message: "Username is required"
+            message: "Username address is required"
         });
     }
-
-    if (!validator.isAlphanumeric(username)) {
+    if (!validator.isEmail(username)) {
         return res.status(400).json({
             success: false,
-            message: "Please enter a valid username"
+            message: "Please enter a username similar to your email address"
         });
     }
-    if(validator.isAlphanumeric(username)){
+    if(validator.isEmail(username)){
+
         try {
             const user = await User.findOne({username});
             if (user) {
@@ -69,16 +69,50 @@ const usernameValidator = async (req, res, next) => {
                 });
             }
             return next();
-            
         } catch (error) {
             return error500(error, req, res, next);
-        }     
-        
+        }
+         
     }
-
     return error500(error, req, res, next);
     
 }
+// const usernameValidator = async (req, res, next) => {
+//     const { username } = req.body;
+//     if(username == undefined){
+
+//         return res.status(400).json({
+//             success: false,
+//             message: "Username is required"
+//         });
+//     }
+
+//     if (!validator.isAlphanumeric(username)) {
+//         return res.status(400).json({
+//             success: false,
+//             message: "Please enter a valid username"
+//         });
+//     }
+//     if(validator.isAlphanumeric(username)){
+//         try {
+//             const user = await User.findOne({username});
+//             if (user) {
+//                 return res.status(400).json({
+//                     success: false,
+//                     message: "Username already exists"
+//                 });
+//             }
+//             return next();
+            
+//         } catch (error) {
+//             return error500(error, req, res, next);
+//         }     
+        
+//     }
+
+//     return error500(error, req, res, next);
+    
+// }
 const passwordValidator = async (req, res, next) => {
     const { password } = req.body;
     if(password == undefined){
