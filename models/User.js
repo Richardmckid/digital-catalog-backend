@@ -6,8 +6,9 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, required: [true, 'Username is required'], unique: true},
     email: { type: String, required: [true, 'Email address is required'], unique: true},
     password: { type: String, required: [true, 'Password is required']},
-    resetLink: { type: String},
-    role: {type: String, default: 'supplier'}
+    // resetLink: { type: String},
+    role: {type: String, default: 'supplier'},
+    supplier_id: { type: String},
 }, {timestamps:true})
 
 UserSchema.pre('save', async function(next){
